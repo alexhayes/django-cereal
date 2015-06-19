@@ -21,16 +21,15 @@ DJANGO_CEREAL_PICKLE = 'django_cereal_pickle'
 
 def _model_unpickle(cls, data):
     """Unpickle a model by retrieving it from the database."""
-    auto_field_attname = cls._meta.auto_field.attname
-    auto_field_value = data['i']
-    obj = cls.objects.get(**{auto_field_attname: auto_field_value})
+    auto_field_value = data['pk']
+    obj = cls.objects.get(pk=auto_field_value)
     return obj
 _model_unpickle.__safe_for_unpickle__ = True
 
 
 def _reduce(self):
     cls = self.__class__
-    data = {'i': getattr(self, self._meta.auto_field.attname)}
+    data = {'pk': self.pk}
     return (_model_unpickle, (cls, data), data)
 
 
