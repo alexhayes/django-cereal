@@ -6,3 +6,8 @@ class ModelWithBasicField(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.pk
+
+
+class ModelWithParentModel(ModelWithBasicField):
+    foo = models.BooleanField(default=False)
+

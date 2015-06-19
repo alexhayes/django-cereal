@@ -1,10 +1,10 @@
 from django.test import TestCase
 from django.db import models
 
-from django_cereal.tests.testapp.models import ModelWithBasicField
+from django_cereal.tests.testapp.models import ModelWithBasicField, ModelWithParentModel
 
 
-class PatchTestCase(TestCase):
+class PickleTestCase(TestCase):
 
     def test_basic_patch(self):
         """Test that patching works as expected."""
@@ -62,3 +62,14 @@ class PatchTestCase(TestCase):
         for key, value in expected.items():
             self.assertIn(key, actual, 'Expected key %s to exist in actual' % key)
             self.assertEqual(actual[key], value, "Expected %s in actual to be equal to %s not %s." % (key, value, actual[key]))
+
+    def test_inherited_model(self):
+        """Test that patching an inherited models works as expected."""
+        from django_cereal.pickle import model_encode, model_decode
+
+        expected = ModelWithParentModel.objects.create(name='foo')
+        actual = model_decode(model_encode(expected))
+
+        self.assertGreater(expected.pk, 0)
+        self.assertEqual(actual.pk, expected.pk)
+        self.assertEqual(actual.name, 'foo')
