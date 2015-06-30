@@ -8,9 +8,14 @@
 """
 from __future__ import absolute_import
 import pickle
+import logging
 from contextlib import contextmanager
 
 from django.db import models
+from django.db.utils import OperationalError
+
+
+logger = logging.getLogger(__name__)
 
 
 __all__ = ['DJANGO_CEREAL_PICKLE', 'patched_model', 'model_encode',
@@ -22,7 +27,18 @@ DJANGO_CEREAL_PICKLE = 'django_cereal_pickle'
 def _model_unpickle(cls, data):
     """Unpickle a model by retrieving it from the database."""
     auto_field_value = data['pk']
-    obj = cls.objects.get(pk=auto_field_value)
+    try:
+        obj = cls.objects.get(pk=auto_field_value)
+    except Exception as e:
+        if isinstance(e, OperationalError):
+            # Attempt reconnect, we've probably hit;
+            # OperationalError(2006, 'MySQL server has gone away')
+            logger.debug("Caught OperationalError, closing database connection.", exc_info=e)
+            from django.db import connection
+            connection.close()
+            obj = cls.objects.get(pk=auto_field_value)
+        else:
+            raise
     return obj
 _model_unpickle.__safe_for_unpickle__ = True
 
