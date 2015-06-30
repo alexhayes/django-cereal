@@ -119,6 +119,25 @@ and you are chaining these tasks you may be interested in the
 .. _`Celery issue #2137`: https://github.com/celery/celery/issues/2137
 
 
+Database Connections
+====================
+
+Note that if you use the :code:`--maxtasksperworker` flag in Celery, or under
+other similar situations, the connection to a database in Django could become
+unusable, with errors such as the following thrown;
+
+.. code-block:: python
+
+    OperationalError(2006, 'MySQL server has gone away')
+
+This is now handled by the unpickling by closing down the database connection
+which forces a new connection to be created.
+
+Perhaps in the future there may be a nicer way of handling this, for instance,
+a new connection is created each time a worker is created, but for now the fix
+in place works, even if it's not ideal.
+
+
 License
 =======
 

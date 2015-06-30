@@ -24,6 +24,7 @@ if not settings.configured:
                 'NAME': ':memory:',
             }
         },
+        MIDDLEWARE_CLASSES={},
         TEST_RUNNER='django_nose.NoseTestSuiteRunner',
         NOSE_ARGS=['--logging-clear-handlers',
                    # Coverage - turn on with NOSE_WITH_COVERAGE=1
