@@ -1,3 +1,7 @@
+# Release 0.2.1 - Mon Dec 14 12:26:56 AEDT 2015
+
+- Fixed issue in docs.
+
 # Release 0.2.0 - Mon Dec 14 12:25:12 AEDT 2015
 
 - Support for Django 1.9 and Python 3.5 - updated docs accordingly.
