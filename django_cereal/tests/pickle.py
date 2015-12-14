@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.db import models
 
-from django_cereal.tests.testapp.models import ModelWithBasicField, ModelWithParentModel
 
 
 class PickleTestCase(TestCase):
@@ -9,6 +8,7 @@ class PickleTestCase(TestCase):
     def test_basic_patch(self):
         """Test that patching works as expected."""
         from django_cereal.pickle import model_encode, model_decode
+        from django_cereal.tests.testapp.models import ModelWithBasicField
 
         expected = ModelWithBasicField.objects.create(name='foo')
         actual = model_decode(model_encode(expected))
@@ -20,6 +20,7 @@ class PickleTestCase(TestCase):
     def test_deep_patch(self):
         """Test that models contained deep inside a dict are serialized correctly."""
         from django_cereal.pickle import model_encode, model_decode
+        from django_cereal.tests.testapp.models import ModelWithBasicField
         
         bar = ModelWithBasicField.objects.create(name='bar')
         eggs = ModelWithBasicField.objects.create(name='sausage')
@@ -32,6 +33,7 @@ class PickleTestCase(TestCase):
     def test_raises_on_doesnotexist(self):
         """Tests that decoding raises DoesNotExist if the item can't be found in the database."""
         from django_cereal.pickle import model_encode, model_decode
+        from django_cereal.tests.testapp.models import ModelWithBasicField
 
         dne = ModelWithBasicField(id=1)
         encoded = model_encode(dne)
@@ -40,6 +42,7 @@ class PickleTestCase(TestCase):
     def test_cleanup(self):
         """Test that the serialization cleans up after itself."""
         from django_cereal.pickle import model_encode, model_decode
+        from django_cereal.tests.testapp.models import ModelWithBasicField
 
         patched = ('__reduce__', '__setstate__', '__getstate__')
         expected = {}
@@ -66,6 +69,7 @@ class PickleTestCase(TestCase):
     def test_inherited_model(self):
         """Test that patching an inherited models works as expected."""
         from django_cereal.pickle import model_encode, model_decode
+        from django_cereal.tests.testapp.models import ModelWithParentModel
 
         expected = ModelWithParentModel.objects.create(name='foo')
         actual = model_decode(model_encode(expected))

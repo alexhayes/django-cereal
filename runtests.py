@@ -25,16 +25,6 @@ if not settings.configured:
             }
         },
         MIDDLEWARE_CLASSES={},
-        TEST_RUNNER='django_nose.NoseTestSuiteRunner',
-        NOSE_ARGS=['--logging-clear-handlers',
-                   # Coverage - turn on with NOSE_WITH_COVERAGE=1
-                   '--cover-html',
-                   '--cover-package=django_cereal',
-                   '--cover-erase',
-                   '--with-fixture-bundling',
-                   # Nose Progressive
-                   '--with-progressive',
-                   ]
     )
 
 

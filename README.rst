@@ -2,7 +2,11 @@
 django-cereal
 =============
 
-Efficient serialization of `Django`_ `Models`_ for use in `Celery`_ that ensure the state of the world.
+Efficient serialization of `Django`_ `Models`_ for use in `Celery`_ that ensure
+the state of the world.
+
+It supports Django 1.7, 1.8 and 1.9 for Python versions 2.7, 3.3, 3.4, 3.5 and
+pypy (where Django supports the Python version).
 
 .. _`Django`: https://www.djangoproject.com/
 .. _`Models`: https://docs.djangoproject.com/en/stable/topics/db/models/
@@ -107,8 +111,44 @@ Another approach is to set :code:`CELERY_TASK_SERIALIZER` to
 :code:`django-cereal-pickle`.
 
 
-Task Methods
-============
+Model Task Methods
+==================
+
+You can also use task methods on your Django models, so you don't have to define
+them in a tasks.py. For example;
+
+.. code-block:: python
+
+    from celery.contrib.methods import task_method
+    from django_cereal.pickle import DJANGO_CEREAL_PICKLE
+    from yourproject.celery import app
+
+
+    task_method_kwargs = dict(filter=task_method,
+                          serializer=DJANGO_CEREAL_PICKLE)
+
+
+    class MyModel(models.Model);
+
+        @app.task(name='MyModel.foo', **task_method_kwargs)
+        def foo(self):
+            # self is an instance of MyModel
+
+
+Then, you can call your task as follows;
+
+.. code-block:: python
+
+    bar = MyModel.objects.get(...)
+    bar.foo.delay()
+
+
+Just like your would a normal task but you can stop defining tasks that simply
+orchestrate calls on a model and just call the model directly.
+
+
+Chaining Task Methods
+=====================
 
 While not directly related to serialization of Django models, if you are using
 Django Model methods as tasks, or any class methods as tasks for that matter,
