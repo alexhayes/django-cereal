@@ -2,7 +2,7 @@
 
 VERSION=$1
 DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-INIT_PATH="$DIR/../../django-cereal/__init__.py"
+INIT_PATH="$DIR/../../django_cereal/__init__.py"
 
 echo "### MUNGING VERSION $VERSION INTO $INIT_PATH"
 
