@@ -155,7 +155,7 @@ Django Model methods as tasks, or any class methods as tasks for that matter,
 and you are chaining these tasks you may be interested in the
 `@ensure_self decorator`_ (see `Celery issue #2137`_ for more details).
 
-.. _`@ensure_self decorator`: https://bitbucket.org/alexhayes/django-toolkit/src/93d23b254bb1edcf31ff5b0f91673fc439f26438/django_toolkit/celery/decorators.py?at=master#cl-3
+.. _`@ensure_self decorator`: https://github.com/alexhayes/django-toolkit/blob/master/django_toolkit/celery/decorators.py#L3
 .. _`Celery issue #2137`: https://github.com/celery/celery/issues/2137
 
 
