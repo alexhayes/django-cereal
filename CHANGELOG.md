@@ -1,3 +1,9 @@
+# Release 0.2.0 - Mon Dec 14 12:25:12 AEDT 2015
+
+- Support for Django 1.9 and Python 3.5 - updated docs accordingly.
+- Fixed issue with post release hook.
+- Added hook to update version in __init__.py
+
 # Release 0.1.2 - Wed Jul  1 10:01:42 AEST 2015
 
 - Fixes #1 - 'MySQL server has gone away' with --maxtasksperchild

@@ -1,4 +1,0 @@
-nose
-django-nose
-nose-progressive
-coverage
