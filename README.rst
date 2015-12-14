@@ -128,7 +128,7 @@ them in a tasks.py. For example;
                           serializer=DJANGO_CEREAL_PICKLE)
 
 
-    class MyModel(models.Model);
+    class MyModel(models.Model):
 
         @app.task(name='MyModel.foo', **task_method_kwargs)
         def foo(self):
