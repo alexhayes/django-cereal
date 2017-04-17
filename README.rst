@@ -2,6 +2,8 @@
 django-cereal
 =============
 
+|build-status-image|
+
 Efficient serialization of `Django`_ `Models`_ for use in `Celery`_ that ensure
 the state of the world.
 
@@ -189,3 +191,7 @@ Author
 ======
 
 Alex Hayes <alex@alution.com>
+
+.. |build-status-image| image:: https://secure.travis-ci.org/alanjds/django-google-adwords.svg?branch=master
+      :target: http://travis-ci.org/alanjds/django-google-adwords?branch=master
+
