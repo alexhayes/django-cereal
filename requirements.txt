@@ -4,7 +4,7 @@ anyjson==0.3.3
 argparse==1.2.1
 billiard==3.3.0.20
 blessings==1.6
-celery==3.1.18
+celery>=3.1.18,<5.0
 coverage==3.7.1
 django-nose==1.4
 kombu==3.0.26
